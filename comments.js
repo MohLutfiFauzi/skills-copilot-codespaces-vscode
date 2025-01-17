@@ -1,26 +1,19 @@
-// create web server
+// Create web server
+// Create a new express application
+// Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
 const express = require('express');
 const app = express();
 const port = 3000;
 
-// import comments
-const comments = require('./comments');
-
-// get all comments
+// Create a new route that listens for GET requests to the /comments path
 app.get('/comments', (req, res) => {
-  res.json(comments);
+  res.json([
+    { id: 1, author: 'Morgan', text: 'This is a comment' },
+    { id: 2, author: 'Morgan', text: 'This is a second comment' },
+  ]);
 });
 
-// get comment by id
-app.get('/comments/:id', (req, res) => {
-  const comment = comments.find(comment => comment.id === parseInt(req.params.id));
-  if (!comment) {
-    res.status(404).send('The comment with the given ID was not found.');
-  } else {
-    res.json(comment);
-  }
-});
-
+// Start the server
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is listening on http://localhost:${port}`);
 });
